@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/flexible.js"></script>
-    <script src="js/jquery.min.js"></script>
     <script src="js/echarts.min.js"></script>
+    <script src="js/database.js"></script>
 </head>
 
 <body>
-    <button>选择钻井</button>
-    <button>选择日期</button>
     <!-- 父容器 -->
     <div class="viewport">
 
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <!-- 流量 -->
-            <div class="point panel">
+            <div class="point panel" style="margin-bottom: 0;">
                 <div class="inner">
                     <div class="flow"></div>
                 </div>
@@ -41,11 +41,107 @@
         </div>
 
 
+        <!-- 中央模块 -->
+        <div class="column mid">
+            <!-- 当前时间 -->
+            <div class="panel">
+                <div class="time">
+                    <span class="y"></span>
+                    <span class="mon"></span>
+                    <span class="d"></span>
+                    <span class="h"></span>
+                    <span class="m"></span>
+                    <span class="s"></span>
+                </div>
+            </div>
 
-        <div class="column">1</div>
-        <div class="column">1</div>
+
+            <!-- 雷达 -->
+            <div class="point panel" id="pressPlus" style="height: 450px;">
+                <div class="inner">
+                    <div class="radar"></div>
+                </div>
+            </div>
+
+            <!-- 时间井号 -->
+            <div class="point panel " style="margin-bottom: 0;">
+                <div class="inner">
+                    <div class="choosed">
+                        <span>当前油井号:</span>
+                        <span class="wildcat">1</span>
+                        <br>
+                        <span>当前选择时间:</span>
+                        <span class="timeChoosed">2022年04月21日</span>
+                    </div>
+                    <div class="choose">
+                        <input type="text" placeholder="填入需要查看的井号">
+                        <input type="text" placeholder="填入需要查看的时间">
+                        <button id="submit">提交</button>
+                        <button id="reset">重置</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="column">
+            <!-- 钻井深度模块 -->
+            <div class="point panel">
+                <div class="inner">
+                    <div class="deep"></div>
+                </div>
+            </div>
+
+
+            <!-- 出入口数据轮播图 -->
+            <div class="point panel ex">
+                <div class="inner">
+                    <div id="carouselExampleInterval" class="carousel slide" data-bs-touch="false"
+                        data-bs-interval="false">>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="density" style="width: 400px;height: 210px;"></div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="temperature" style="width: 400px;height: 210px;"></div>
+                            </div>
+
+                        </div>
+                        <button class="carousel-control-prev" style="left: -25px;" type="button"
+                            data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 转速 -->
+            <div class="pan">
+                <div class="point panel half" style="margin-bottom: 0;">
+                    <div class="inner">
+                        <div class="speedM"></div>
+                    </div>
+                </div>
+                <div class="point panel half">
+                    <div class="inner">
+                        <div class="speedP"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-
     <script src="js/index.js"></script>
 </body>
 
