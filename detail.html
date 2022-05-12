@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/detail.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <script src="js/axios.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="./js/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <!--导航栏 -->
+  <nav class="navbar navbar-dark bg-dark">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active mynav" aria-current="page" href="./index.html">展示页</a>
+        <button class="btn btn-secondary" id="add">添加</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- 内容 -->
+  <div class="box">
+    <div class="addbox">
+      <i class="bi bi-x-circle xp"></i>
+      <form action="">
+        <div class="content-box">
+          <div class="tr">
+            <label for="inputidid" class="form-label">井号</label>
+            <input type="text" id="inputidid" class="form-control">
+
+            <label for="inputtime" class="form-label">时间</label>
+            <input type="datetime-local" id="inputtime" class="form-control">
+
+            <label for="inputms" class="form-label">机械转速</label>
+            <input type="text" id="inputms" class="form-control">
+
+            <label for="inputps" class="form-label">转盘转速</label>
+            <input type="text" id="inputps" class="form-control">
+            <!-- 气体含量 -->
+            <label for="inputgas" class="form-label">气体含量</label>
+            <input type="text" id="inputgas" class="form-control">
+            <p>(氧气，氮气，氦气，氢气，氯气，其他)</p>
+          </div>
+          <div class="tr">
+            <label for="inputhp" class="form-label">大钩位置</label>
+            <input type="text" id="inputhp" class="form-control">
+
+            <label for="inputhl" class="form-label">大钩载荷</label>
+            <input type="text" id="inputhl" class="form-control">
+
+            <label for="inputtq" class="form-label">扭矩</label>
+            <input type="text" id="inputtq" class="form-control">
+
+            <label for="inputfoot" class="form-label">钻进进尺</label>
+            <input type="text" id="inputfoot" class="form-control">
+
+            <label for="inputwt" class="form-label">钻头时间</label>
+            <input type="text" id="inputwt" class="form-control">
+
+            <label for="inputecd" class="form-label">井底ECD</label>
+            <input type="text" id="inputecd" class="form-control">
+          </div>
+          <div class="tr">
+            <label for="inputwtd" class="form-label">钻头测深</label>
+            <input type="text" id="inputwtd" class="form-control">
+
+            <label for="inputwd" class="form-label">钻头垂深</label>
+            <input type="text" id="inputwd" class="form-control">
+
+            <label for="inputetd" class="form-label">井眼测深</label>
+            <input type="text" id="inputetd" class="form-control">
+
+            <label for="inputed" class="form-label">井眼垂深</label>
+            <input type="text" id="inputed" class="form-control">
+          </div>
+          <div class="tr">
+            <label for="inputwp" class="form-label">钻压</label>
+            <input type="text" id="inputwp" class="form-control">
+
+            <label for="inputpp" class="form-label">泵压</label>
+            <input type="text" id="inputpp" class="form-control">
+
+            <label for="inputot" class="form-label">出口温度</label>
+            <input type="text" id="inputot" class="form-control">
+
+            <label for="inputit" class="form-label">入口温度</label>
+            <input type="text" id="inputit" class="form-control">
+          </div>
+          <div class="tr">
+            <label for="inputof" class="form-label">出口流量</label>
+            <input type="text" id="inputof" class="form-control">
+
+            <label for="inputif" class="form-label">入口流量</label>
+            <input type="text" id="inputif" class="form-control">
+
+            <label for="inputvf" class="form-label">出入口体积流量</label>
+            <input type="text" id="inputvf" class="form-control">
+          </div>
+        </div>
+
+
+
+        <input class="btn btn-primary" type="submit" value="提交" id="submit">
+      </form>
+    </div>
+    <table class="table table-dark table-hover">
+      <thead>
+        <th>井号</th>
+        <th>时间</th>
+        <th>操作</th>
+      </thead>
+      <tbody id="tb">
+      </tbody>
+    </table>
+  </div>
+
+
+  <script src="./js/detail.js"></script>
+</body>
+
+</html>

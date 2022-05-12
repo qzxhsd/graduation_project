@@ -2,8 +2,8 @@ var pressChart = echarts.init(document.querySelector('.press'), 'dark');
 var gasChart = echarts.init(document.querySelector('.gas'), 'dark');
 var flowChart = echarts.init(document.querySelector('.flow'), 'dark');
 var deepChart = echarts.init(document.querySelector('.deep'));
-var densityChart = echarts.init(document.querySelector('.density'), 'dark');
-var temperatureChart = echarts.init(document.querySelector('.temperature'), 'dark');
+var outtemperatureChart = echarts.init(document.querySelector('.out'), 'dark');
+var intemperatureChart = echarts.init(document.querySelector('.in'), 'dark');
 var speedMChart = echarts.init(document.querySelector('.speedM'), 'dark');
 var speedPChart = echarts.init(document.querySelector('.speedP'), 'dark');
 var radarChart = echarts.init(document.querySelector('.radar'), 'dark');
@@ -31,7 +31,7 @@ function countDown() {
     var s = nowTime.getSeconds()
 
     mon = mon < 10 ? '0' + mon : mon;
-    day = day < 10 ? '0' + day : day;
+    d = d < 10 ? '0' + d : d;
     h = h < 10 ? '0' + h : h;
     m = m < 10 ? '0' + m : m;
     s = s < 10 ? '0' + s : s;
@@ -52,10 +52,10 @@ var optionPress = {
         text: '深度钻压与泵压'
     },
     tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        data: ['钻压', '泵压']
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
     },
     grid: {
         left: '3%',
@@ -63,25 +63,22 @@ var optionPress = {
         bottom: '3%',
         containLabel: true
     },
-    xAxis: {
+    xAxis: [{
         type: 'category',
-        boundaryGap: false,
-        data: ['100', '200', '500', '600', '700', '800', '900']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-            name: '钻压',
-            type: 'line',
-            data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-            name: '泵压',
-            type: 'line',
-            data: [220, 182, 191, 234, 290, 330, 310]
+        data: ['钻压', '泵压'],
+        axisTick: {
+            alignWithLabel: true
         }
-    ]
+    }],
+    yAxis: [{
+        type: 'value'
+    }],
+    series: [{
+        name: 'Direct',
+        type: 'bar',
+        barWidth: '60%',
+        data: [10, 52]
+    }]
 };
 pressChart.setOption(optionPress);
 
@@ -125,6 +122,10 @@ var optionGas = {
             {
                 value: 28,
                 name: '氯气'
+            },
+            {
+                value: 28,
+                name: '其他'
             }
         ]
     }]
@@ -134,24 +135,14 @@ gasChart.setOption(optionGas)
 
 // 流量
 var optionFlow = {
-    color: ['#80FFA5', '#FF0087', '#FFBF00'],
     title: {
-        text: '出入口流量',
-        textStyle: {
-            fontSize: 12
-        }
+        text: '出入口流量'
     },
     tooltip: {
         trigger: 'axis',
         axisPointer: {
-            type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
-            }
+            type: 'shadow'
         }
-    },
-    legend: {
-        data: ['出口流量', '入口流量', '出口体积流量']
     },
     grid: {
         left: '3%',
@@ -161,89 +152,20 @@ var optionFlow = {
     },
     xAxis: [{
         type: 'category',
-        boundaryGap: false,
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['出口流量', '入口流量', '出入口体积流量'],
+        axisTick: {
+            alignWithLabel: true
+        }
     }],
     yAxis: [{
         type: 'value'
     }],
     series: [{
-            name: '出口流量',
-            type: 'line',
-            smooth: true,
-            lineStyle: {
-                width: 0
-            },
-            showSymbol: false,
-            areaStyle: {
-                opacity: 0.3,
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: 'rgb(128, 255, 165)'
-                    },
-                    {
-                        offset: 1,
-                        color: 'rgb(1, 191, 236)'
-                    }
-                ])
-            },
-            emphasis: {
-                focus: 'series'
-            },
-            data: [140, 232, 101, 264, 90, 340, 250]
-        },
-        {
-            name: '入口流量',
-            type: 'line',
-            smooth: true,
-            lineStyle: {
-                width: 0
-            },
-            showSymbol: false,
-            areaStyle: {
-                opacity: 0.3,
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: 'rgb(255, 0, 135)'
-                    },
-                    {
-                        offset: 1,
-                        color: 'rgb(135, 0, 157)'
-                    }
-                ])
-            },
-            emphasis: {
-                focus: 'series'
-            },
-            data: [120, 282, 111, 234, 220, 340, 310]
-        },
-        {
-            name: '出口体积流量',
-            type: 'line',
-            smooth: true,
-            lineStyle: {
-                width: 0
-            },
-            showSymbol: false,
-            areaStyle: {
-                opacity: 0.3,
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: 'rgb(255, 191, 0)'
-                    },
-                    {
-                        offset: 1,
-                        color: 'rgb(224, 62, 76)'
-                    }
-                ])
-            },
-            emphasis: {
-                focus: 'series'
-            },
-            data: [320, 132, 201, 334, 190, 130, 220]
-        },
-
-    ]
+        type: 'bar',
+        barWidth: '40%',
+        data: [10, 52, 200],
+        colorBy: "data"
+    }]
 };
 flowChart.setOption(optionFlow);
 
@@ -256,7 +178,7 @@ var optionDeep = {
         radius: [10, '90%']
     },
     radiusAxis: {
-        max: 400
+        max: 10000
     },
     angleAxis: {
         type: 'category',
@@ -282,181 +204,225 @@ deepChart.setOption(optionDeep);
 
 
 
-// 出入口数据轮播图
-var optionDensity = {
+
+// 温度
+var optionOut = {
     title: {
-        text: '出入口密度'
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        data: ['出口密度', '入口密度']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [
-
-        {
-            name: '出口密度',
-            type: 'line',
-            data: [150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-            name: '入口密度',
-            type: 'line',
-            data: [320, 332, 301, 334, 390, 330, 320]
-        }
-    ]
-};
-densityChart.setOption(optionDensity);
-
-
-var optionTemperature = {
-    title: {
-        text: '出入口温度'
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {},
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    },
-    yAxis: {
-        type: 'value',
-        axisLabel: {
-            formatter: '{value} °C'
-        }
+        text: '出口温度'
     },
     series: [{
-            name: '出口温度',
-            type: 'line',
-            data: [10, 11, 13, 11, 12, 12, 9],
-            markPoint: {
-                data: [{
-                        type: 'max',
-                        name: 'Max'
-                    },
-                    {
-                        type: 'min',
-                        name: 'Min'
-                    }
-                ]
+            type: 'gauge',
+            center: ['50%', '60%'],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 1800,
+            splitNumber: 12,
+            itemStyle: {
+                color: '#FFAB91'
             },
-            markLine: {
-                data: [{
-                        type: 'average',
-                        name: 'Avg'
-                    },
-                    [{
-                            symbol: 'none',
-                            x: '90%',
-                            yAxis: 'max'
-                        },
-                        {
-                            symbol: 'circle',
-                            label: {
-                                position: 'start',
-                                formatter: 'Max'
-                            },
-                            type: 'max',
-                            name: '最高点'
-                        }
-                    ],
-                    [{
-                            symbol: 'none',
-                            x: '90%',
-                            yAxis: 'min'
-                        },
-                        {
-                            symbol: 'circle',
-                            label: {
-                                position: 'start',
-                                formatter: 'Min'
-                            },
-                            type: 'min',
-                            name: '最低点'
-                        }
-                    ]
-                ]
-            }
+            progress: {
+                show: true,
+                width: 30
+            },
+            pointer: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    width: 10
+                }
+            },
+            axisTick: {
+                distance: -20,
+                splitNumber: 5,
+                lineStyle: {
+                    width: 2,
+                    color: '#999'
+                }
+            },
+            splitLine: {
+                distance: -30,
+                length: 14,
+                lineStyle: {
+                    width: 3,
+                    color: '#999'
+                }
+            },
+            axisLabel: {
+                distance: -20,
+                color: '#999',
+                fontSize: 10
+            },
+            anchor: {
+                show: false
+            },
+            title: {
+                show: false
+            },
+            detail: {
+                valueAnimation: true,
+                width: '60%',
+                lineHeight: 40,
+                borderRadius: 8,
+                offsetCenter: [0, '-15%'],
+                fontSize: 20,
+                fontWeight: 'bolder',
+                formatter: '{value} °C',
+                color: 'auto'
+            },
+            data: [{
+                value: 20
+            }]
         },
         {
-            name: '入口温度',
-            type: 'line',
-            data: [1, -2, 2, 5, 3, 2, 0],
-            markPoint: {
-                data: [{
-                    name: '周最低',
-                    value: -2,
-                    xAxis: 1,
-                    yAxis: -1.5
-                }]
+            type: 'gauge',
+            center: ['50%', '60%'],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 1800,
+            itemStyle: {
+                color: '#FD7347'
             },
-            markLine: {
-                data: [{
-                        type: 'average',
-                        name: 'Avg'
-                    },
-                    [{
-                            symbol: 'none',
-                            x: '90%',
-                            yAxis: 'max'
-                        },
-                        {
-                            symbol: 'circle',
-                            label: {
-                                position: 'start',
-                                formatter: 'Max'
-                            },
-                            type: 'max',
-                            name: '最高点'
-                        }
-                    ],
-                    [{
-                            symbol: 'none',
-                            x: '90%',
-                            yAxis: 'min'
-                        },
-                        {
-                            symbol: 'circle',
-                            label: {
-                                position: 'start',
-                                formatter: 'Min'
-                            },
-                            type: 'min',
-                            name: '最低点'
-                        }
-                    ]
-                ]
-            }
+            progress: {
+                show: true,
+                width: 8
+            },
+            pointer: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            splitLine: {
+                show: false
+            },
+            axisLabel: {
+                show: false
+            },
+            detail: {
+                show: false
+            },
+            data: [{
+                value: 20
+            }]
         }
     ]
 };
-temperatureChart.setOption(optionTemperature);
+outtemperatureChart.setOption(optionOut);
 
-
+var optionIn = {
+    title: {
+        text: '入口温度'
+    },
+    series: [{
+            type: 'gauge',
+            center: ['50%', '60%'],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 1800,
+            splitNumber: 12,
+            itemStyle: {
+                color: '#FFAB91'
+            },
+            progress: {
+                show: true,
+                width: 30
+            },
+            pointer: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    width: 10
+                }
+            },
+            axisTick: {
+                distance: -20,
+                splitNumber: 5,
+                lineStyle: {
+                    width: 2,
+                    color: '#999'
+                }
+            },
+            splitLine: {
+                distance: -30,
+                length: 14,
+                lineStyle: {
+                    width: 3,
+                    color: '#999'
+                }
+            },
+            axisLabel: {
+                distance: -20,
+                color: '#999',
+                fontSize: 10
+            },
+            anchor: {
+                show: false
+            },
+            title: {
+                show: false
+            },
+            detail: {
+                valueAnimation: true,
+                width: '60%',
+                lineHeight: 40,
+                borderRadius: 8,
+                offsetCenter: [0, '-15%'],
+                fontSize: 20,
+                fontWeight: 'bolder',
+                formatter: '{value} °C',
+                color: 'auto'
+            },
+            data: [{
+                value: 20
+            }]
+        },
+        {
+            type: 'gauge',
+            center: ['50%', '60%'],
+            startAngle: 200,
+            endAngle: -20,
+            min: 0,
+            max: 1800,
+            itemStyle: {
+                color: '#FD7347'
+            },
+            progress: {
+                show: true,
+                width: 8
+            },
+            pointer: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            splitLine: {
+                show: false
+            },
+            axisLabel: {
+                show: false
+            },
+            detail: {
+                show: false
+            },
+            data: [{
+                value: 20
+            }]
+        }
+    ]
+};
+intemperatureChart.setOption(optionIn);
 
 // 机械转速
 var optionSpeedM = {
@@ -515,8 +481,8 @@ speedPChart.setOption(optionSpeedP);
 
 
 // 雷达
-const dataBJ = [
-    [155, 29, 156, 0.46, 99, 62]
+var dataBJ = [
+    [155, 239, 156, 124, 99, 62]
 ];
 const lineStyle = {
     width: 1,
@@ -544,19 +510,19 @@ var optionRadar = {
     radar: {
         indicator: [{
                 name: '大钩位置',
-                max: 300
+                max: 10000
             },
             {
                 name: '大钩载荷',
-                max: 250
+                max: 4500
             },
             {
                 name: '扭矩',
-                max: 300
+                max: 100
             },
             {
                 name: '钻进进尺',
-                max: 5
+                max: 10000
             },
             {
                 name: '钻头时间',
@@ -603,12 +569,8 @@ var optionRadar = {
             color: '#F9713C'
         },
         areaStyle: {
-            opacity: 0.1
+            opacity: 0.3
         }
     }]
 };
 radarChart.setOption(optionRadar);
-
-function f1() {
-    console.log(1);
-}

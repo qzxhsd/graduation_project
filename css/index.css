@@ -47,6 +47,10 @@ a {
 }
 
 a:hover {
+  color: black;
+}
+
+a:hover {
   color: #e33333;
 }
 

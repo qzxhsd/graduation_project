@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="js/axios.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/flexible.js"></script>
@@ -74,10 +74,12 @@
                         <span class="timeChoosed">2022年04月21日</span>
                     </div>
                     <div class="choose">
-                        <input type="text" placeholder="填入需要查看的井号">
-                        <input type="text" placeholder="填入需要查看的时间">
+                        <input type="text" class="wid" placeholder="填入需要查看的井号">
+                        <input type="datetime-local" class="wtime" placeholder="填入需要查看的时间">
                         <button id="submit">提交</button>
                         <button id="reset">重置</button>
+                        <br>
+                        <button id="reset"><a href="./detail.html">详情</a></button>
                     </div>
                 </div>
             </div>
@@ -104,10 +106,10 @@
                         data-bs-interval="false">>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <div class="density" style="width: 400px;height: 210px;"></div>
+                                <div class="out" style="width: 400px;height: 210px;"></div>
                             </div>
                             <div class="carousel-item">
-                                <div class="temperature" style="width: 400px;height: 210px;"></div>
+                                <div class="in" style="width: 400px;height: 210px;"></div>
                             </div>
 
                         </div>
